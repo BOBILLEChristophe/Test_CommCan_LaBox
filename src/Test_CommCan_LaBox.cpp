@@ -62,18 +62,18 @@ void loop()
   delay(100);
 
   // Test des differentes fonctions du decodeur
-  // for (byte i = 0; i <= 28; i++)
-  // {
-  //   // Activation
-  //   loco->fn[i] = on;
-  //   laBox.setFunction(loco, i);
-  //   delay(1000);
+  for (byte i = 0; i <= 28; i++)
+  {
+    // Activation
+    loco->fn[i] = on;
+    laBox.setFunction(loco, i);
+    delay(1000);
 
-  //   // Desactivation
-  //   loco->fn[i] = off;
-  //   laBox.setFunction(loco, i);
-  //   delay(100);
-  // }
+    // Desactivation
+    loco->fn[i] = off;
+    laBox.setFunction(loco, i);
+    delay(100);
+  }
 
   // Active les feux et le bruit de la locomotive
   laBox.toggleFunction(loco, 0);
