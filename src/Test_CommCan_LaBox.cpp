@@ -96,7 +96,9 @@ void loop()
   laBox.setThrottle(loco);
   delay(15000);
 
-  // Arriere 50
+  // Arriere 25
+  loco->speed = 25;
+  loco->direction = 0;
   laBox.toggleThrottleDir(loco);
   delay(15000);
 
