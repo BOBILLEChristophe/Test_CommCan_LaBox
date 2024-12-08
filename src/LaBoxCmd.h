@@ -16,8 +16,8 @@
 
 struct Loco
 {
-  uint16_t address;
-  uint8_t speed;
+  uint32_t address;
+  uint16_t speed;
   uint8_t direction;
   byte fn[28];
 };
@@ -25,13 +25,11 @@ struct Loco
 class LaBoxCmd
 {
 private:
-    uint8_t mID;
-    uint8_t mIDlabox;
+    uint32_t mID;
     bool mDebug;
     bool mPower;
-
 public:
-    LaBoxCmd(uint8_t, uint8_t);
+    LaBoxCmd(uint8_t);
     ~LaBoxCmd();
     void setup();
     bool setPower(bool);
