@@ -30,8 +30,7 @@
 #include "CanMsg.h"
 #include "LaBoxCmd.h"
 
-const uint8_t myID = 251;     // Identifiant de cet expéditeur au hasard
-const uint8_t laboxID = 253;  // Identifiant de laBox sur le bus CAN
+const uint32_t myID = 0x1811;     // Identifiant de cet expéditeur
 
 Loco *loco = new Loco;
 
@@ -41,14 +40,14 @@ enum : byte
   on
 };
 
-LaBoxCmd laBox(myID, laboxID);
+LaBoxCmd laBox(myID);
 
 void setup()
 {
   Serial.begin(115200);
   CanMsg::setup();
 
-  loco->address = 12333; // Renseigner l'adresse de votre locomotive
+  loco->address = 78; // Renseigner l'adresse de votre locomotive
 }
 
 void loop()
@@ -72,7 +71,7 @@ void loop()
     // Desactivation
     loco->fn[i] = off;
     laBox.setFunction(loco, i);
-    delay(100);
+    delay(1000);
   }
 
   // Active les feux et le bruit de la locomotive
@@ -80,9 +79,13 @@ void loop()
   laBox.toggleFunction(loco, 1);
   delay(10);
 
-  // Avant 25
-  loco->speed = 25;
+    // Vers l'avant
   loco->direction = 1;
+  laBox.setThrottle(loco);
+  delay(15000);
+
+  // Vitesse 25
+  loco->speed = 25;
   laBox.setThrottle(loco);
   delay(15000);
 
@@ -91,21 +94,25 @@ void loop()
   laBox.setThrottle(loco);
   delay(5000);
 
-  // Avant 50
+  // Vitesse 50
   loco->speed = 50;
   laBox.setThrottle(loco);
   delay(15000);
 
-  // Arriere 25
-  loco->speed = 25;
+  // Vers l'arriere
   loco->direction = 0;
   laBox.toggleThrottleDir(loco);
-  delay(15000);
+  delay(100);
 
-  // Arriere 75
+  // Vitesse 75
   loco->speed = 75;
   laBox.setThrottle(loco);
   delay(15000);
+
+  // Vitesse 10
+  loco->speed = 10;
+  laBox.setThrottle(loco);
+  delay(5000);
 
   // emergency stop
   laBox.emergency();
