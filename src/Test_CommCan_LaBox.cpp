@@ -18,6 +18,7 @@
                        Ajouts de commandes dont la POM  case 0xF7:
                                                         // WRITE CV on MAIN <w CAB CV VALUE>
   v 0.6.2 - 21/02/24 : Modification de l'identifiant long   
+  v 0.6.3 - 08/12/24 : Diverses MAJ   
 */
 
 #ifndef ARDUINO_ARCH_ESP32
