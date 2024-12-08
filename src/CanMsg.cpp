@@ -8,7 +8,7 @@
 
 gpio_num_t CanMsg::RxPin = GPIO_NUM_4;              // Optional, default Rx pin is GPIO_NUM_4
 gpio_num_t CanMsg::TxPin = GPIO_NUM_5;              // Optional, default Tx pin is GPIO_NUM_5
-uint32_t CanMsg::DESIRED_BIT_RATE = 1000UL * 1000UL; // 1 Mb/s;
+uint32_t CanMsg::DESIRED_BIT_RATE = 250UL * 1000UL; // 250 Kb/s;
 
 CANMessage frameIn;
 
@@ -106,11 +106,10 @@ void CanMsg::sendMsg(CANMessage &frame)
 
 auto formatMsg = [](CANMessage &frame, byte prio, byte cmde, byte thisNodeId, byte destNodeId, byte resp) -> CANMessage
 {
-  frame.id |= prio << 27;       // Priorite 0, 1, 2 ou 3
-  frame.id |= cmde << 19;       // commande appelée
-  frame.id |= thisNodeId << 11; // ID expediteur
-  frame.id |= destNodeId << 3;  // ID LaBox
-  frame.id |= resp << 2;        // Réponse
+  frame.id |= prio << 25;       // Priorite 0, 1, 2 ou 3
+  frame.id |= cmde << 17;       // commande appelée
+  frame.id |= resp << 16;       // Réponse
+  frame.id |= thisNodeId;       // ID expediteur
   frame.ext = true;
   return frame;
 };
